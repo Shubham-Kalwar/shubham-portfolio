@@ -1,0 +1,25 @@
+<div class="certs-page">
+  <!-- Page header bar -->
+  <header class="certs-page__header">
+    <div class="certs-page__header-inner">
+      <span class="certs-page__prompt">$ cd ~/certifications</span>
+      <a
+        class="certs-page__back"
+        routerLink="/"
+        data-cursor-interactive
+      >&lt;- back to portfolio</a>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <div class="certs-page__content">
+    <div class="certs-page__section-label">$ ls -la ~/certifications</div>
+    <h1 class="certs-page__title">Certifications</h1>
+    <p class="certs-page__subtitle">
+      Verified credentials across cloud, software engineering, and data science.
+    </p>
+
+    <!-- Certifications listing -->
+    <app-certifications />
+  </div>
+</div>

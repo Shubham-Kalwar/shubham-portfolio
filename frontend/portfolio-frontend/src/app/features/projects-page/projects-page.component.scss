@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  animation: page-fade-in 300ms ease-out;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page header bar ── */
+.projects-page__header {
+  background: var(--bg-surface);
+  border-bottom: 0.5px solid var(--border-subtle);
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 48px; /* clears the navbar */
+  z-index: 50;
+  backdrop-filter: blur(12px);
+}
+
+.projects-page__header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.projects-page__prompt {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--accent-green);
+  letter-spacing: 0.02em;
+}
+
+.projects-page__back {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 150ms ease-out;
+
+  &:hover {
+    color: var(--accent-green);
+  }
+}

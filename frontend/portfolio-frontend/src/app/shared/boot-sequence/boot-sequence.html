@@ -1,0 +1,25 @@
+@if (visible()) {
+  <div
+    class="boot-overlay"
+    [class.fade-out]="fadingOut()"
+    role="status"
+    aria-live="polite"
+    aria-label="Loading portfolio"
+  >
+    <div class="boot-terminal">
+      @for (line of lines(); track $index) {
+        <p class="boot-line" [class.last-line]="$index === lines().length - 1 && $last">
+          {{ line }}
+        </p>
+      }
+    </div>
+
+    <button
+      class="skip-link"
+      (click)="skip()"
+      aria-label="Skip boot animation"
+    >
+      skip ↵
+    </button>
+  </div>
+}

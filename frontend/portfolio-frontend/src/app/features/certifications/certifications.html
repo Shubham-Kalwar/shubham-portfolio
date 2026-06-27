@@ -1,0 +1,55 @@
+<div class="certifications" [class.certifications--visible]="visible()">
+
+  <!-- Loading state -->
+  @if (loading()) {
+    <div class="certifications__list">
+      @for (s of skeletons; track s) {
+        <div class="certifications__skeleton">
+          <div class="certifications__skeleton-left"></div>
+          <div class="certifications__skeleton-right"></div>
+        </div>
+      }
+    </div>
+  } @else {
+
+    <!-- Dense ls -la directory listing -->
+    <div class="certifications__list">
+      @for (cert of certifications(); track cert.id; let i = $index) {
+        <div class="certifications__row" [style.transition-delay]="(i * 40) + 'ms'">
+          <!-- Index + icon -->
+          <span class="certifications__index">{{ (i + 1).toString().padStart(2, '0') }}</span>
+          <span class="certifications__icon">◆</span>
+
+          <!-- Main info -->
+          <div class="certifications__info">
+            <span class="certifications__title">{{ cert.title }}</span>
+            <span class="certifications__meta">
+              <span class="certifications__issuer">{{ cert.issuer }}</span>
+              <span class="certifications__sep">·</span>
+              <span class="certifications__date">{{ cert.issueDate }}</span>
+              @if (cert.credentialId) {
+                <span class="certifications__sep">·</span>
+                <span class="certifications__id">{{ cert.credentialId }}</span>
+              }
+            </span>
+          </div>
+
+          <!-- Optional link -->
+          @if (cert.credentialUrl) {
+            <a
+              class="certifications__link"
+              [href]="cert.credentialUrl"
+              target="_blank"
+              rel="noopener"
+              data-cursor-interactive
+            >-&gt; verify</a>
+          }
+        </div>
+      } @empty {
+        <p class="certifications__empty">// nothing here yet</p>
+      }
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,72 @@
+<nav
+  class="navbar"
+  [class.navbar--scrolled]="scrolled()"
+  role="navigation"
+  aria-label="Main navigation"
+>
+  <div class="navbar__inner">
+    <!-- Logo -->
+    <a
+      class="navbar__logo"
+      href="/"
+      (click)="goHome($event)"
+      data-cursor-interactive
+    >
+      ~/shubham
+    </a>
+
+    <!-- Desktop nav links -->
+    <ul class="navbar__links">
+      <!-- Scroll-anchor links (home page sections only) -->
+      @for (section of scrollSections; track section) {
+        <li>
+          <a
+            class="navbar__link"
+            [class.navbar__link--active]="isSectionActive(section)"
+            [href]="'#' + section"
+            (click)="navigateToSection(section, $event)"
+            data-cursor-interactive
+          >
+            ./{{ section }}
+          </a>
+        </li>
+      }
+      <!-- Route links (real navigation) -->
+      @for (link of routeLinks; track link.path) {
+        <li>
+          <a
+            class="navbar__link"
+            [routerLink]="link.path"
+            routerLinkActive="navbar__link--active"
+            data-cursor-interactive
+          >
+            ./{{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Right side: palette hint + hamburger -->
+    <div class="navbar__actions">
+      <button
+        class="navbar__palette-hint"
+        (click)="openPalette()"
+        data-cursor-interactive
+        aria-label="Open command palette"
+      >
+        @if (isMac()) { ⌘K } @else { Ctrl + K }
+      </button>
+
+      <button
+        class="navbar__hamburger"
+        (click)="onHamburgerClick()"
+        data-cursor-interactive
+        aria-label="Open menu"
+      >
+        <span class="navbar__hamburger-line"></span>
+        <span class="navbar__hamburger-line"></span>
+        <span class="navbar__hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+</nav>

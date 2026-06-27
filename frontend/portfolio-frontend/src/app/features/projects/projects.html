@@ -1,0 +1,211 @@
+<section class="projects" [class.projects--visible]="visible()">
+  <div class="projects__container">
+
+    <!-- ═══════════════════════════════════════════════════════
+         FEATURED MODE
+         3-col grid of up to 6 featured cards + "ls --all" CTA
+         ═══════════════════════════════════════════════════════ -->
+    @if (mode() === 'featured') {
+
+      <!-- Section header -->
+      <div class="projects__header">
+        <span class="projects__label">$ ls ~/projects</span>
+        <h2 class="projects__title">Projects</h2>
+      </div>
+
+      <!-- Loading skeletons -->
+      @if (loading()) {
+        <div class="projects__grid">
+          @for (s of skeletons; track s) {
+            <div class="projects__skeleton">
+              <div class="projects__skeleton-header"></div>
+              <div class="projects__skeleton-line projects__skeleton-line--long"></div>
+              <div class="projects__skeleton-line projects__skeleton-line--medium"></div>
+              <div class="projects__skeleton-line projects__skeleton-line--short"></div>
+            </div>
+          }
+        </div>
+      } @else {
+        <!-- Featured card grid (max 6) -->
+        <div class="projects__grid">
+          @for (project of featuredCapped(); track project.id; let i = $index) {
+            <article
+              class="projects__card"
+              [class.projects__card--glitch]="glitchIndex() === i"
+              [class.projects__card--scanline]="scanlineIndex() === i"
+              (mouseenter)="onCardEnter(i)"
+              (mouseleave)="onCardLeave()"
+            >
+              <div class="projects__card-header">
+                <div class="projects__card-dots">
+                  <span class="projects__dot projects__dot--red"></span>
+                  <span class="projects__dot projects__dot--amber"></span>
+                  <span class="projects__dot projects__dot--green"></span>
+                </div>
+                <span class="projects__card-path">cat {{ toSlug(project.title) }}.md</span>
+              </div>
+              <div class="projects__card-body">
+                <h3 class="projects__card-title">{{ project.title }}</h3>
+                <p class="projects__card-desc">{{ project.shortDescription }}</p>
+                <span class="projects__card-tech">{{ formatTechStack(project.techStackList) }}</span>
+                @if (project.highlightBadge) {
+                  <span class="projects__card-badge">{{ formatBadge(project.highlightBadge) }}</span>
+                }
+                @if (project.githubUrl) {
+                  <a
+                    class="projects__card-link"
+                    [href]="project.githubUrl"
+                    target="_blank"
+                    rel="noopener"
+                    data-cursor-interactive
+                  >-&gt; git clone {{ project.githubUrl }}</a>
+                }
+              </div>
+            </article>
+          } @empty {
+            <p class="projects__empty">// nothing here yet</p>
+          }
+        </div>
+
+        <!-- CTA: navigate to /projects -->
+        <div class="projects__cta">
+          <a
+            class="projects__cta-btn"
+            routerLink="/projects"
+            data-cursor-interactive
+          >$ ls ~/projects --all</a>
+        </div>
+      }
+
+    }
+
+    <!-- ═══════════════════════════════════════════════════════
+         FULL MODE
+         Featured rich cards row + All-projects directory listing
+         with dynamic filter tags
+         ═══════════════════════════════════════════════════════ -->
+    @if (mode() === 'full') {
+
+      <!-- Featured cards row -->
+      <div class="projects__header">
+        <span class="projects__label">$ cat featured.md</span>
+        <h2 class="projects__title">Featured Projects</h2>
+      </div>
+
+      @if (loading()) {
+        <div class="projects__grid">
+          @for (s of skeletons; track s) {
+            <div class="projects__skeleton">
+              <div class="projects__skeleton-header"></div>
+              <div class="projects__skeleton-line projects__skeleton-line--long"></div>
+              <div class="projects__skeleton-line projects__skeleton-line--medium"></div>
+              <div class="projects__skeleton-line projects__skeleton-line--short"></div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="projects__grid projects__grid--featured">
+          @for (project of featuredCapped(); track project.id; let i = $index) {
+            <article
+              class="projects__card"
+              [class.projects__card--glitch]="glitchIndex() === i"
+              [class.projects__card--scanline]="scanlineIndex() === i"
+              (mouseenter)="onCardEnter(i)"
+              (mouseleave)="onCardLeave()"
+            >
+              <div class="projects__card-header">
+                <div class="projects__card-dots">
+                  <span class="projects__dot projects__dot--red"></span>
+                  <span class="projects__dot projects__dot--amber"></span>
+                  <span class="projects__dot projects__dot--green"></span>
+                </div>
+                <span class="projects__card-path">cat {{ toSlug(project.title) }}.md</span>
+              </div>
+              <div class="projects__card-body">
+                <h3 class="projects__card-title">{{ project.title }}</h3>
+                <p class="projects__card-desc">{{ project.shortDescription }}</p>
+                <span class="projects__card-tech">{{ formatTechStack(project.techStackList) }}</span>
+                @if (project.highlightBadge) {
+                  <span class="projects__card-badge">{{ formatBadge(project.highlightBadge) }}</span>
+                }
+                @if (project.githubUrl) {
+                  <a
+                    class="projects__card-link"
+                    [href]="project.githubUrl"
+                    target="_blank"
+                    rel="noopener"
+                    data-cursor-interactive
+                  >-&gt; git clone {{ project.githubUrl }}</a>
+                }
+              </div>
+            </article>
+          } @empty {
+            <p class="projects__empty">// nothing here yet</p>
+          }
+        </div>
+
+        <!-- ── All Projects Directory Listing ── -->
+        <div class="projects__dir-section">
+          <div class="projects__header projects__header--dir">
+            <span class="projects__label">$ ls -la ~/projects</span>
+            <h2 class="projects__title">All Projects</h2>
+          </div>
+
+          <!-- Dynamic filter tags -->
+          <div class="projects__filters">
+            @for (filter of dynamicFilters(); track filter.flag) {
+              <button
+                class="projects__filter"
+                [class.projects__filter--active]="activeFilter() === filter.flag"
+                (click)="setFilter(filter.flag)"
+                data-cursor-interactive
+              >{{ filter.label }}</button>
+            }
+          </div>
+
+          <!-- Directory rows -->
+          <div class="projects__dir">
+            @for (project of filteredAllProjects(); track project.id) {
+              <div class="projects__dir-row" [class.projects__dir-row--open]="expandedId() === project.id">
+                <!-- Collapsed row — click to expand -->
+                <button
+                  class="projects__dir-row-head"
+                  (click)="toggleExpand(project.id!)"
+                  data-cursor-interactive
+                  [attr.aria-expanded]="expandedId() === project.id"
+                >
+                  <span class="projects__dir-arrow">{{ expandedId() === project.id ? '▾' : '▸' }}</span>
+                  <span class="projects__dir-name">{{ toSlug(project.title) }}.md</span>
+                  @if (project.highlightBadge) {
+                    <span class="projects__dir-badge">{{ formatBadge(project.highlightBadge) }}</span>
+                  }
+                  <span class="projects__dir-tech">{{ formatTechStack(project.techStackList) }}</span>
+                </button>
+
+                <!-- Expanded detail -->
+                @if (expandedId() === project.id!) {
+                  <div class="projects__dir-detail">
+                    <p class="projects__dir-desc">{{ project.shortDescription }}</p>
+                    @if (project.githubUrl) {
+                      <a
+                        class="projects__dir-link"
+                        [href]="project.githubUrl"
+                        target="_blank"
+                        rel="noopener"
+                        data-cursor-interactive
+                      >-&gt; git clone {{ project.githubUrl }}</a>
+                    }
+                  </div>
+                }
+              </div>
+            } @empty {
+              <p class="projects__empty">// nothing here yet</p>
+            }
+          </div>
+        </div>
+      }
+
+    }
+
+  </div>
+</section>

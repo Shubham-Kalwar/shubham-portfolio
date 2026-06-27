@@ -1,0 +1,147 @@
+<section class="contact" [class.contact--visible]="visible()">
+  <div class="contact__container">
+
+    <!-- Section header -->
+    <div class="contact__header">
+      <span class="contact__label">$ ping --contact</span>
+      <h2 class="contact__title">Contact</h2>
+    </div>
+
+    <!-- Terminal window -->
+    <div class="contact__terminal">
+      <!-- Terminal header bar -->
+      <div class="contact__terminal-bar">
+        <div class="contact__dots">
+          <span class="contact__dot contact__dot--red"></span>
+          <span class="contact__dot contact__dot--amber"></span>
+          <span class="contact__dot contact__dot--green"></span>
+        </div>
+        <span class="contact__terminal-title">shubham&#64;portfolio:~/contact</span>
+        <div class="contact__dots-spacer"></div>
+      </div>
+
+      <!-- Terminal body -->
+      <div class="contact__terminal-body">
+        <div class="contact__grid">
+
+          <!-- ── Left: Static info ── -->
+          <div class="contact__info">
+            <div class="contact__cmd">$ whoami --contact</div>
+
+            <div class="contact__info-line">
+              <span class="contact__info-key">email</span>
+              <a class="contact__info-val contact__info-val--link" href="mailto:{{ EMAIL }}" data-cursor-interactive>
+                {{ EMAIL }}
+              </a>
+            </div>
+
+            <div class="contact__info-line">
+              <span class="contact__info-key">github</span>
+              <a class="contact__info-val contact__info-val--link" [href]="GITHUB" target="_blank" rel="noopener" data-cursor-interactive>
+                github.com/Shubham-Kalwar
+              </a>
+            </div>
+
+            <div class="contact__info-line">
+              <span class="contact__info-key">linkedin</span>
+              <a class="contact__info-val contact__info-val--link" [href]="LINKEDIN" target="_blank" rel="noopener" data-cursor-interactive>
+                linkedin.com/in/shubham-kalwar
+              </a>
+            </div>
+
+            <div class="contact__info-line">
+              <span class="contact__info-key">location</span>
+              <span class="contact__info-val">{{ LOCATION }}</span>
+            </div>
+          </div>
+
+          <!-- ── Right: Form or result ── -->
+          <div class="contact__form-area">
+            @if (submitted()) {
+              @if (success()) {
+                <!-- Success state -->
+                <div class="contact__result contact__result--success">
+                  <span class="contact__result-icon">✓</span>
+                  <span class="contact__result-text">message sent successfully</span>
+                </div>
+              } @else {
+                <!-- Error state -->
+                <div class="contact__result contact__result--error">
+                  <span class="contact__result-icon">✗</span>
+                  <span class="contact__result-text">delivery failed -- email me directly</span>
+                  <a class="contact__mailto" href="mailto:{{ EMAIL }}" data-cursor-interactive>
+                    $ mailto {{ EMAIL }}
+                  </a>
+                </div>
+              }
+            } @else {
+              <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact__form" autocomplete="off">
+                <!-- Name field -->
+                <div class="contact__field">
+                  <label class="contact__prompt" for="contact-name">$ contact --name</label>
+                  <input
+                    class="contact__input"
+                    id="contact-name"
+                    type="text"
+                    formControlName="name"
+                    placeholder="your name"
+                    data-cursor-interactive
+                  />
+                </div>
+                @if (getError('name')) {
+                  <span class="contact__error">{{ getError('name') }}</span>
+                }
+
+                <!-- Email field -->
+                <div class="contact__field">
+                  <label class="contact__prompt" for="contact-email">$ contact --email</label>
+                  <input
+                    class="contact__input"
+                    id="contact-email"
+                    type="email"
+                    formControlName="email"
+                    placeholder="you@example.com"
+                    data-cursor-interactive
+                  />
+                </div>
+                @if (getError('email')) {
+                  <span class="contact__error">{{ getError('email') }}</span>
+                }
+
+                <!-- Message field -->
+                <div class="contact__field contact__field--message">
+                  <label class="contact__prompt" for="contact-message">$ contact --message</label>
+                  <textarea
+                    class="contact__textarea"
+                    id="contact-message"
+                    formControlName="message"
+                    placeholder="your message..."
+                    rows="4"
+                    data-cursor-interactive
+                  ></textarea>
+                </div>
+                @if (getError('message')) {
+                  <span class="contact__error">{{ getError('message') }}</span>
+                }
+
+                <!-- Submit -->
+                <button
+                  class="contact__submit"
+                  type="submit"
+                  [disabled]="submitting()"
+                  data-cursor-interactive
+                >
+                  @if (submitting()) {
+                    <span class="contact__dots-anim">$ sending<span class="contact__dots-typing"></span></span>
+                  } @else {
+                    $ send
+                  }
+                </button>
+              </form>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

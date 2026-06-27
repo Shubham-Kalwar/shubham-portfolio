@@ -1,0 +1,256 @@
+:host {
+  display: block;
+}
+
+/* ── Section ── */
+.hero {
+  min-height: 100vh;
+  /* Subtle dot-grid texture behind the terminal window */
+  background:
+    radial-gradient(circle, rgba(61, 220, 132, 0.045) 1px, transparent 1px),
+    var(--bg-base);
+  background-size: 28px 28px, auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem 4rem;
+}
+
+/* ── Terminal window ── */
+.hero__terminal {
+  width: 100%;
+  max-width: 720px;
+  border: 0.5px solid var(--border-strong);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+/* ── Terminal header ── */
+.hero__terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border-bottom: 0.5px solid var(--border-subtle);
+}
+
+.hero__dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hero__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  &--red { background: var(--accent-red); }
+  &--amber { background: var(--accent-amber); }
+  &--green { background: var(--accent-green); }
+}
+
+.hero__terminal-title {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.hero__dots-spacer {
+  width: 44px; /* balance the dots on the left */
+  flex-shrink: 0;
+}
+
+/* ── Terminal body ── */
+.hero__terminal-body {
+  padding: 2rem 2rem 2.5rem;
+}
+
+/* ── Whoami line ── */
+.hero__line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero__prompt {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--accent-green);
+  user-select: none;
+}
+
+.hero__cmd {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ── Name ── */
+.hero__name {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0.75rem 0 0.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* ── Typewriter role ── */
+.hero__role {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  min-height: 1.75rem;
+}
+
+.hero__role-text {
+  font-family: var(--font-mono);
+  font-size: 1.0625rem;
+  color: var(--accent-green);
+  letter-spacing: 0.01em;
+}
+
+.hero__role-cursor {
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  color: var(--accent-green);
+  margin-left: 1px;
+  animation: role-blink 530ms step-end infinite;
+}
+
+@keyframes role-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Tagline ── */
+.hero__tagline {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 2rem;
+  max-width: 520px;
+}
+
+/* ── CTA buttons ── */
+.hero__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hero__btn {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 100ms ease-out, background 150ms ease-out,
+    border-color 150ms ease-out, color 150ms ease-out;
+  letter-spacing: 0.01em;
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &--primary {
+    background: var(--accent-green);
+    color: var(--bg-base);
+    border: 1px solid var(--accent-green);
+    font-weight: 500;
+
+    &:hover {
+      background: #34c975;
+      border-color: #34c975;
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-strong);
+
+    &:hover {
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+  }
+}
+
+/* ── Reveal animation (stagger after boot) ── */
+.hero__line--stagger-1,
+.hero__line--stagger-2,
+.hero__line--stagger-3,
+.hero__line--stagger-4,
+.hero__line--stagger-5 {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+
+.hero--revealed {
+  .hero__line--stagger-1 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0ms;
+  }
+  .hero__line--stagger-2 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 150ms;
+  }
+  .hero__line--stagger-3 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 300ms;
+  }
+  .hero__line--stagger-4 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 450ms;
+  }
+  .hero__line--stagger-5 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 600ms;
+  }
+}
+
+/* Also fade in the terminal itself */
+.hero__terminal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+
+  .hero--revealed & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .hero__terminal-body {
+    padding: 1.5rem 1.25rem 2rem;
+  }
+
+  .hero__name {
+    font-size: 1.75rem;
+  }
+
+  .hero__role-text {
+    font-size: 0.9375rem;
+  }
+
+  .hero__tagline {
+    font-size: 0.9375rem;
+  }
+}

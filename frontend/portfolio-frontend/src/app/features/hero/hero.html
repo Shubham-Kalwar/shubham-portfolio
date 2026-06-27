@@ -1,0 +1,57 @@
+<section class="hero" [class.hero--revealed]="revealed()">
+  <div class="hero__terminal">
+    <!-- Terminal header bar -->
+    <div class="hero__terminal-header">
+      <div class="hero__dots">
+        <span class="hero__dot hero__dot--red"></span>
+        <span class="hero__dot hero__dot--amber"></span>
+        <span class="hero__dot hero__dot--green"></span>
+      </div>
+      <span class="hero__terminal-title">shubham&#64;portfolio:~</span>
+      <div class="hero__dots-spacer"></div>
+    </div>
+
+    <!-- Terminal body -->
+    <div class="hero__terminal-body">
+      <!-- Whoami command -->
+      <div class="hero__line hero__line--stagger-1">
+        <span class="hero__prompt">$</span>
+        <span class="hero__cmd">whoami</span>
+      </div>
+
+      <!-- Name output -->
+      <h1 class="hero__name hero__line--stagger-2">
+        Shubham Kalwar
+      </h1>
+
+      <!-- Typewriter roles -->
+      <div class="hero__role hero__line--stagger-3">
+        <span class="hero__role-text">{{ typewriterText() }}</span>
+        <span class="hero__role-cursor">|</span>
+      </div>
+
+      <!-- Tagline -->
+      <p class="hero__tagline hero__line--stagger-4">
+        Building systems that scale — from packet inspectors to calorie estimators.
+      </p>
+
+      <!-- CTA buttons -->
+      <div class="hero__actions hero__line--stagger-5">
+        <button
+          class="hero__btn hero__btn--primary"
+          (click)="scrollToProjects()"
+          data-cursor-interactive
+        >
+          ./view-work
+        </button>
+        <button
+          class="hero__btn hero__btn--secondary"
+          (click)="downloadResume()"
+          data-cursor-interactive
+        >
+          ./resume.pdf
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

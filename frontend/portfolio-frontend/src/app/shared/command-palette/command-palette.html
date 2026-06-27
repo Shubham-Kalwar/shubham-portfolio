@@ -1,0 +1,53 @@
+@if (isOpen()) {
+  <div
+    class="palette-backdrop"
+    (click)="onBackdropClick($event)"
+    (keydown.escape)="close()"
+  >
+    <div class="palette-modal" role="dialog" aria-label="Command Palette">
+      <div class="palette-input-row">
+        <span class="palette-prompt">&gt;</span>
+        <input
+          #searchInput
+          type="text"
+          class="palette-input"
+          placeholder="Type a command..."
+          [value]="query()"
+          (input)="onQueryChange($any($event.target).value)"
+          (keydown)="onInputKeydown($event)"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <kbd class="palette-shortcut">ESC</kbd>
+      </div>
+
+      <div class="palette-divider"></div>
+
+      <ul class="palette-list" role="listbox">
+        @for (cmd of filtered(); track cmd.label; let i = $index) {
+          <li
+            class="palette-item"
+            [class.selected]="i === selectedIndex()"
+            role="option"
+            [attr.aria-selected]="i === selectedIndex()"
+            (click)="executeCommand(cmd)"
+            (mouseenter)="selectItem(i)"
+          >
+            <span class="palette-item-label">{{ cmd.label }}</span>
+            <span class="palette-item-category">{{ cmd.category }}</span>
+          </li>
+        } @empty {
+          <li class="palette-empty">No matching commands</li>
+        }
+      </ul>
+
+      <div class="palette-footer">
+        <span class="palette-footer-hint">
+          <kbd>↑↓</kbd> navigate
+          <kbd>↵</kbd> select
+          <kbd>esc</kbd> close
+        </span>
+      </div>
+    </div>
+  </div>
+}

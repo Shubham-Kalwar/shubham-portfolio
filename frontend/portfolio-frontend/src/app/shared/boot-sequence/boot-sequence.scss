@@ -1,0 +1,74 @@
+:host {
+  display: contents;
+}
+
+.boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background-color: var(--bg-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 400ms ease-out;
+
+  &.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.boot-terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 2rem;
+  max-width: 640px;
+  width: 100%;
+}
+
+.boot-line {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--accent-green);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typewriter 0.3s steps(40, end) forwards;
+
+  &.last-line {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+}
+
+@keyframes typewriter {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  background: none;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: color 200ms ease-out, border-color 200ms ease-out;
+  letter-spacing: 0.02em;
+
+  &:hover {
+    color: var(--text-secondary);
+    border-color: var(--border-strong);
+  }
+}

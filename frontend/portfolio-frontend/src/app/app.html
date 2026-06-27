@@ -1,0 +1,28 @@
+<!-- Scroll progress bar -->
+<div
+  class="scroll-progress"
+  [style.width.%]="scrollProgress()"
+></div>
+
+<app-custom-cursor />
+<app-boot-sequence />
+<app-command-palette />
+<app-navbar />
+
+<main [class.route-fading]="routeFading()">
+  <router-outlet />
+</main>
+
+<app-footer />
+
+<!-- Back to top button -->
+@if (showBackToTop()) {
+  <button
+    class="back-to-top"
+    (click)="scrollToTop()"
+    data-cursor-interactive
+    aria-label="Scroll to top"
+  >
+    [ ^ top ]
+  </button>
+}

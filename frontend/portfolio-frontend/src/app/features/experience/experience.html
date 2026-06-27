@@ -1,0 +1,62 @@
+<section class="experience" [class.experience--visible]="visible()">
+  <div class="experience__container">
+
+    <!-- Section header -->
+    <div class="experience__header">
+      <span class="experience__label">$ git log --oneline --experience</span>
+      <h2 class="experience__title">Experience</h2>
+    </div>
+
+    @if (loading()) {
+      <div class="experience__loading">
+        <p>$ fetching commits...</p>
+      </div>
+    } @else {
+      <div class="experience__timeline">
+        @for (exp of experiences(); track exp.id; let i = $index) {
+          <div
+            class="experience__entry"
+            [class.experience__entry--internship]="isInternship(exp)"
+            [class.experience__entry--achievement]="!isInternship(exp)"
+            [style.transition-delay]="(i * 80) + 'ms'"
+          >
+            <!-- Marker -->
+            <div class="experience__marker">
+              @if (isInternship(exp)) {
+                <span class="experience__dot experience__dot--green"></span>
+              } @else {
+                <span class="experience__star">★</span>
+              }
+            </div>
+
+            <!-- Content -->
+            <div class="experience__content">
+              <div class="experience__meta">
+                <span class="experience__period">{{ exp.period }}</span>
+                <span class="experience__type">{{ exp.type }}</span>
+              </div>
+
+              <h3 class="experience__role">
+                {{ exp.title }}
+                <span class="experience__company">&#64; {{ exp.company }}</span>
+                @if (isBestPerformer(exp)) {
+                  <span class="experience__best-performer">[BEST PERFORMER]</span>
+                }
+              </h3>
+
+              @if (exp.bulletList && exp.bulletList.length > 0) {
+                <ul class="experience__bullets">
+                  @for (bullet of exp.bulletList; track bullet) {
+                    <li class="experience__bullet">{{ bullet }}</li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+        } @empty {
+          <p class="experience__empty">$ no commits found</p>
+        }
+      </div>
+    }
+  </div>
+</section>

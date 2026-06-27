@@ -1,0 +1,62 @@
+<section class="about" [class.about--visible]="visible()">
+  <div class="about__container">
+
+    <!-- Section header -->
+    <div class="about__header">
+      <span class="about__label">$ cat about.md</span>
+      <h2 class="about__title">About Me</h2>
+    </div>
+
+    <div class="about__grid">
+      <!-- ── Left: Bio + Stats ── -->
+      <div class="about__left">
+        <p class="about__bio">
+          I'm a pre-final year B.E. Information Technology student at
+          Thakur College of Engineering and Technology, Mumbai, with a
+          CGPA of 8.94. I build full-stack applications using Java,
+          Spring Boot, and Angular, and develop ML and computer vision
+          solutions in Python. I care about clean architecture and code
+          that solves real problems.
+        </p>
+
+        <div class="about__stats">
+          <!-- CGPA stat -->
+          <div class="about__stat">
+            <span class="about__stat-value">8.94</span>
+            <span class="about__stat-label">CGPA / 10</span>
+          </div>
+
+          <!-- Achievement stat -->
+          <div class="about__stat about__stat--gold">
+            <span class="about__stat-value">Best Performer</span>
+            <span class="about__stat-label">Elevate Labs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Right: Skills ── -->
+      <div class="about__right">
+        @if (loading()) {
+          <p class="about__skills-loading">$ loading skills...</p>
+        } @else {
+          <div class="about__skills-groups">
+            @for (category of categoryKeys(); track category) {
+              @if (getSkillsForCategory(category).length > 0) {
+                <div class="about__skill-group">
+                  <span class="about__category-label">
+                    {{ labelFor(category) }}
+                  </span>
+                  <div class="about__pills">
+                    @for (skill of getSkillsForCategory(category); track skill) {
+                      <span class="about__pill">{{ skill }}</span>
+                    }
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

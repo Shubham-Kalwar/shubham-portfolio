@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --bg-base: #0a0d0b;
+  --bg-surface: #0f1411;
+  --bg-elevated: #141a16;
+  --border-subtle: #1d2620;
+  --border-strong: #2a352e;
+  --text-primary: #e7efe9;
+  --text-secondary: #8a958e;
+  --text-muted: #5b6760;
+  --accent-green: #3ddc84;
+  --accent-amber: #e6b450;
+  --accent-red: #e2564f;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography bindings */
+.font-mono,
+code,
+pre,
+kbd,
+samp,
+.navbar,
+.nav-link,
+button,
+.btn,
+.project-chrome,
+.badge,
+.tab-header,
+.command-palette-trigger {
+  font-family: var(--font-mono);
+}
+
+/* Custom cursor: hide native cursor when active (desktop only) */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}

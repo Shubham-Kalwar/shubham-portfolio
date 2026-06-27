@@ -1,0 +1,45 @@
+<footer class="footer">
+  <div class="footer__container">
+
+    <!-- Terminal prompt -->
+    <div class="footer__terminal">
+      <p class="footer__line">
+        <span class="footer__prompt">shubham&#64;portfolio:~$</span>
+        <span class="footer__cmd">echo 'thanks for visiting'</span>
+      </p>
+      <p class="footer__output">thanks for visiting</p>
+      <p class="footer__line">
+        <span class="footer__prompt">shubham&#64;portfolio:~$</span>
+        <span class="footer__cmd">exit</span>
+      </p>
+    </div>
+
+    <!-- Meta row -->
+    <div class="footer__meta">
+      <span class="footer__built">
+        Built with Java · Spring Boot · Angular · {{ YEAR }}
+      </span>
+
+      <div class="footer__links">
+        <a
+          class="footer__link"
+          [href]="GITHUB_URL"
+          target="_blank"
+          rel="noopener"
+          data-cursor-interactive
+        >
+          -&gt; github
+        </a>
+        <a
+          class="footer__link"
+          [href]="LINKEDIN_URL"
+          target="_blank"
+          rel="noopener"
+          data-cursor-interactive
+        >
+          -&gt; linkedin
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

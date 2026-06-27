@@ -1,0 +1,55 @@
+<section class="achievements" [class.achievements--visible]="visible()">
+  <div class="achievements__container">
+
+    <!-- Section header -->
+    <div class="achievements__header">
+      <span class="achievements__label">$ cat ~/achievements</span>
+      <h2 class="achievements__title">Achievements</h2>
+    </div>
+
+    <!-- Loading skeletons -->
+    @if (loading()) {
+      <div class="achievements__grid">
+        @for (s of skeletons; track s) {
+          <div class="achievements__skeleton">
+            <div class="achievements__skeleton-icon"></div>
+            <div class="achievements__skeleton-line achievements__skeleton-line--long"></div>
+            <div class="achievements__skeleton-line achievements__skeleton-line--medium"></div>
+            <div class="achievements__skeleton-line achievements__skeleton-line--short"></div>
+          </div>
+        }
+      </div>
+    } @else {
+
+      <!-- Achievement cards (max 5) -->
+      <div class="achievements__grid">
+        @for (achievement of displayAchievements(); track achievement.id) {
+          <article class="achievements__card">
+            <!-- Trophy icon -->
+            <div class="achievements__icon">★</div>
+
+            <div class="achievements__body">
+              <h3 class="achievements__card-title">{{ achievement.title }}</h3>
+              <span class="achievements__issuer">{{ achievement.issuer }}</span>
+              <span class="achievements__date">{{ achievement.issueDate }}</span>
+
+              @if (achievement.credentialUrl) {
+                <a
+                  class="achievements__link"
+                  [href]="achievement.credentialUrl"
+                  target="_blank"
+                  rel="noopener"
+                  data-cursor-interactive
+                >-&gt; view</a>
+              }
+            </div>
+          </article>
+        } @empty {
+          <p class="achievements__empty">No achievements yet.</p>
+        }
+      </div>
+
+    }
+
+  </div>
+</section>
