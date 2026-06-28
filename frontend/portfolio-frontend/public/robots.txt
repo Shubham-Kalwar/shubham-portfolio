@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /actuator/
+
+Sitemap: https://shubhamkalwar.me/sitemap.xml

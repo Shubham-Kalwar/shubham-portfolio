@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { Hero } from '../hero/hero';
 import { About } from '../about/about';
@@ -66,8 +67,16 @@ import { NavigationIntentService } from '../../core/services/navigation-intent.s
 export class HomeComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly navIntent = inject(NavigationIntentService);
+  private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
 
   ngOnInit(): void {
+    this.title.setTitle('Shubham Kalwar | Full-Stack Developer & ML Engineer');
+    this.meta.updateTag({
+      name: 'description',
+      content: 'Terminal-themed portfolio of Shubham Kalwar — Full-Stack Developer & ML Engineer based in Mumbai. Projects, experience, certifications, and contact.',
+    });
+
     if (!isPlatformBrowser(this.platformId)) return;
 
     const target = this.navIntent.consumePendingScroll();
