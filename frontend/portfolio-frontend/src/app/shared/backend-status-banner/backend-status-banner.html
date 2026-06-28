@@ -1,0 +1,25 @@
+@if (visible()) {
+  <div
+    class="status-banner"
+    [class.status-banner--waking]="status() === 'waking'"
+    [class.status-banner--error]="status() === 'error'"
+    [class.status-banner--fading]="fadingOut()"
+    role="status"
+    aria-live="polite"
+  >
+    @if (status() === 'waking') {
+      <span class="status-banner__prompt">$</span>
+      <span class="status-banner__text">
+        pinging backend<span class="status-banner__ellipsis"></span>
+        <span class="status-banner__hint">
+          — free-tier server waking up, this can take up to a minute on the first visit
+        </span>
+      </span>
+    } @else if (status() === 'error') {
+      <span class="status-banner__prompt">//</span>
+      <span class="status-banner__text">
+        backend is taking longer than expected — try refreshing in a moment
+      </span>
+    }
+  </div>
+}

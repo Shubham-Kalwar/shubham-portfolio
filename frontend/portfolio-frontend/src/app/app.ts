@@ -16,12 +16,13 @@ import { CustomCursor } from './shared/custom-cursor/custom-cursor';
 import { CommandPalette } from './shared/command-palette/command-palette';
 import { Navbar } from './shared/navbar/navbar';
 import { Footer } from './shared/footer/footer';
+import { BackendStatusBanner } from './shared/backend-status-banner/backend-status-banner';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    BootSequence, CustomCursor, CommandPalette, Navbar, Footer,
+    BootSequence, CustomCursor, CommandPalette, Navbar, Footer, BackendStatusBanner,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
