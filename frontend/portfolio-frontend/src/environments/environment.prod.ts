@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'REPLACE_WITH_RAILWAY_URL'
+  apiUrl: 'https://shubham-portfolio-2xm6.onrender.com'
 };
